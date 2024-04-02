@@ -11,10 +11,10 @@
 return /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "../aframe-super-hands-component/index.js":
-/*!************************************************!*\
-  !*** ../aframe-super-hands-component/index.js ***!
-  \************************************************/
+/***/ "./aframe-super-hands-component/index.js":
+/*!***********************************************!*\
+  !*** ./aframe-super-hands-component/index.js ***!
+  \***********************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 /* global AFRAME */
@@ -22,14 +22,14 @@ return /******/ (() => { // webpackBootstrap
 if (typeof AFRAME === 'undefined') {
   throw new Error('Component attempted to register before AFRAME was available.');
 }
-__webpack_require__(/*! ./systems/super-hands-system.js */ "../aframe-super-hands-component/systems/super-hands-system.js");
-__webpack_require__(/*! ./reaction_components/hoverable.js */ "../aframe-super-hands-component/reaction_components/hoverable.js");
-__webpack_require__(/*! ./reaction_components/grabbable.js */ "../aframe-super-hands-component/reaction_components/grabbable.js");
-__webpack_require__(/*! ./reaction_components/stretchable.js */ "../aframe-super-hands-component/reaction_components/stretchable.js");
-__webpack_require__(/*! ./reaction_components/drag-droppable.js */ "../aframe-super-hands-component/reaction_components/drag-droppable.js");
-__webpack_require__(/*! ./reaction_components/draggable.js */ "../aframe-super-hands-component/reaction_components/draggable.js");
-__webpack_require__(/*! ./reaction_components/droppable.js */ "../aframe-super-hands-component/reaction_components/droppable.js");
-__webpack_require__(/*! ./reaction_components/clickable.js */ "../aframe-super-hands-component/reaction_components/clickable.js");
+__webpack_require__(/*! ./systems/super-hands-system.js */ "./aframe-super-hands-component/systems/super-hands-system.js");
+__webpack_require__(/*! ./reaction_components/hoverable.js */ "./aframe-super-hands-component/reaction_components/hoverable.js");
+__webpack_require__(/*! ./reaction_components/grabbable.js */ "./aframe-super-hands-component/reaction_components/grabbable.js");
+__webpack_require__(/*! ./reaction_components/stretchable.js */ "./aframe-super-hands-component/reaction_components/stretchable.js");
+__webpack_require__(/*! ./reaction_components/drag-droppable.js */ "./aframe-super-hands-component/reaction_components/drag-droppable.js");
+__webpack_require__(/*! ./reaction_components/draggable.js */ "./aframe-super-hands-component/reaction_components/draggable.js");
+__webpack_require__(/*! ./reaction_components/droppable.js */ "./aframe-super-hands-component/reaction_components/droppable.js");
+__webpack_require__(/*! ./reaction_components/clickable.js */ "./aframe-super-hands-component/reaction_components/clickable.js");
 
 /**
  * Super Hands component for A-Frame.
@@ -579,14 +579,14 @@ AFRAME.registerComponent('super-hands', {
 
 /***/ }),
 
-/***/ "../aframe-super-hands-component/reaction_components/clickable.js":
-/*!************************************************************************!*\
-  !*** ../aframe-super-hands-component/reaction_components/clickable.js ***!
-  \************************************************************************/
+/***/ "./aframe-super-hands-component/reaction_components/clickable.js":
+/*!***********************************************************************!*\
+  !*** ./aframe-super-hands-component/reaction_components/clickable.js ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 /* global AFRAME */
-var buttonCore = __webpack_require__(/*! ./prototypes/buttons-proto.js */ "../aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js");
+var buttonCore = __webpack_require__(/*! ./prototypes/buttons-proto.js */ "./aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js");
 AFRAME.registerComponent('clickable', AFRAME.utils.extendDeep({}, buttonCore, {
   schema: {
     onclick: {
@@ -638,15 +638,15 @@ AFRAME.registerComponent('clickable', AFRAME.utils.extendDeep({}, buttonCore, {
 
 /***/ }),
 
-/***/ "../aframe-super-hands-component/reaction_components/drag-droppable.js":
-/*!*****************************************************************************!*\
-  !*** ../aframe-super-hands-component/reaction_components/drag-droppable.js ***!
-  \*****************************************************************************/
+/***/ "./aframe-super-hands-component/reaction_components/drag-droppable.js":
+/*!****************************************************************************!*\
+  !*** ./aframe-super-hands-component/reaction_components/drag-droppable.js ***!
+  \****************************************************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 /* global AFRAME */
 var inherit = AFRAME.utils.extendDeep;
-var buttonCore = __webpack_require__(/*! ./prototypes/buttons-proto.js */ "../aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js");
+var buttonCore = __webpack_require__(/*! ./prototypes/buttons-proto.js */ "./aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js");
 AFRAME.registerComponent('drag-droppable', inherit({}, buttonCore, {
   init: function init() {
     console.warn('Warning: drag-droppable is deprecated. Use draggable and droppable components instead');
@@ -714,15 +714,15 @@ AFRAME.registerComponent('drag-droppable', inherit({}, buttonCore, {
 
 /***/ }),
 
-/***/ "../aframe-super-hands-component/reaction_components/draggable.js":
-/*!************************************************************************!*\
-  !*** ../aframe-super-hands-component/reaction_components/draggable.js ***!
-  \************************************************************************/
+/***/ "./aframe-super-hands-component/reaction_components/draggable.js":
+/*!***********************************************************************!*\
+  !*** ./aframe-super-hands-component/reaction_components/draggable.js ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 /* global AFRAME */
 var inherit = AFRAME.utils.extendDeep;
-var buttonCore = __webpack_require__(/*! ./prototypes/buttons-proto.js */ "../aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js");
+var buttonCore = __webpack_require__(/*! ./prototypes/buttons-proto.js */ "./aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js");
 AFRAME.registerComponent('draggable', inherit({}, buttonCore, {
   init: function init() {
     this.DRAGGED_STATE = 'dragged';
@@ -759,10 +759,10 @@ AFRAME.registerComponent('draggable', inherit({}, buttonCore, {
 
 /***/ }),
 
-/***/ "../aframe-super-hands-component/reaction_components/droppable.js":
-/*!************************************************************************!*\
-  !*** ../aframe-super-hands-component/reaction_components/droppable.js ***!
-  \************************************************************************/
+/***/ "./aframe-super-hands-component/reaction_components/droppable.js":
+/*!***********************************************************************!*\
+  !*** ./aframe-super-hands-component/reaction_components/droppable.js ***!
+  \***********************************************************************/
 /***/ (() => {
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -908,16 +908,16 @@ AFRAME.registerComponent('droppable', {
 
 /***/ }),
 
-/***/ "../aframe-super-hands-component/reaction_components/grabbable.js":
-/*!************************************************************************!*\
-  !*** ../aframe-super-hands-component/reaction_components/grabbable.js ***!
-  \************************************************************************/
+/***/ "./aframe-super-hands-component/reaction_components/grabbable.js":
+/*!***********************************************************************!*\
+  !*** ./aframe-super-hands-component/reaction_components/grabbable.js ***!
+  \***********************************************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 /* global AFRAME, THREE */
 var inherit = AFRAME.utils.extendDeep;
-var physicsCore = __webpack_require__(/*! ./prototypes/physics-grab-proto.js */ "../aframe-super-hands-component/reaction_components/prototypes/physics-grab-proto.js");
-var buttonsCore = __webpack_require__(/*! ./prototypes/buttons-proto.js */ "../aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js");
+var physicsCore = __webpack_require__(/*! ./prototypes/physics-grab-proto.js */ "./aframe-super-hands-component/reaction_components/prototypes/physics-grab-proto.js");
+var buttonsCore = __webpack_require__(/*! ./prototypes/buttons-proto.js */ "./aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js");
 // new object with all core modules
 var base = inherit({}, physicsCore, buttonsCore);
 AFRAME.registerComponent('sh-grabbable', inherit(base, {
@@ -1078,10 +1078,10 @@ AFRAME.registerComponent('sh-grabbable', inherit(base, {
 
 /***/ }),
 
-/***/ "../aframe-super-hands-component/reaction_components/hoverable.js":
-/*!************************************************************************!*\
-  !*** ../aframe-super-hands-component/reaction_components/hoverable.js ***!
-  \************************************************************************/
+/***/ "./aframe-super-hands-component/reaction_components/hoverable.js":
+/*!***********************************************************************!*\
+  !*** ./aframe-super-hands-component/reaction_components/hoverable.js ***!
+  \***********************************************************************/
 /***/ (() => {
 
 /* global AFRAME */
@@ -1128,10 +1128,10 @@ AFRAME.registerComponent('hoverable', {
 
 /***/ }),
 
-/***/ "../aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js":
-/*!***************************************************************************************!*\
-  !*** ../aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js ***!
-  \***************************************************************************************/
+/***/ "./aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js":
+/*!**************************************************************************************!*\
+  !*** ./aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js ***!
+  \**************************************************************************************/
 /***/ ((module) => {
 
 // common code used in customizing reaction components by button
@@ -1159,10 +1159,10 @@ module.exports = function () {
 
 /***/ }),
 
-/***/ "../aframe-super-hands-component/reaction_components/prototypes/physics-grab-proto.js":
-/*!********************************************************************************************!*\
-  !*** ../aframe-super-hands-component/reaction_components/prototypes/physics-grab-proto.js ***!
-  \********************************************************************************************/
+/***/ "./aframe-super-hands-component/reaction_components/prototypes/physics-grab-proto.js":
+/*!*******************************************************************************************!*\
+  !*** ./aframe-super-hands-component/reaction_components/prototypes/physics-grab-proto.js ***!
+  \*******************************************************************************************/
 /***/ ((module) => {
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -1236,10 +1236,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "../aframe-super-hands-component/reaction_components/stretchable.js":
-/*!**************************************************************************!*\
-  !*** ../aframe-super-hands-component/reaction_components/stretchable.js ***!
-  \**************************************************************************/
+/***/ "./aframe-super-hands-component/reaction_components/stretchable.js":
+/*!*************************************************************************!*\
+  !*** ./aframe-super-hands-component/reaction_components/stretchable.js ***!
+  \*************************************************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
@@ -1247,7 +1247,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 /* global AFRAME, THREE */
 var inherit = AFRAME.utils.extendDeep;
-var buttonsCore = __webpack_require__(/*! ./prototypes/buttons-proto.js */ "../aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js");
+var buttonsCore = __webpack_require__(/*! ./prototypes/buttons-proto.js */ "./aframe-super-hands-component/reaction_components/prototypes/buttons-proto.js");
 // new object with all core modules
 var base = inherit({}, buttonsCore);
 AFRAME.registerComponent('stretchable', inherit(base, {
@@ -1391,10 +1391,10 @@ AFRAME.registerComponent('stretchable', inherit(base, {
 
 /***/ }),
 
-/***/ "../aframe-super-hands-component/systems/super-hands-system.js":
-/*!*********************************************************************!*\
-  !*** ../aframe-super-hands-component/systems/super-hands-system.js ***!
-  \*********************************************************************/
+/***/ "./aframe-super-hands-component/systems/super-hands-system.js":
+/*!********************************************************************!*\
+  !*** ./aframe-super-hands-component/systems/super-hands-system.js ***!
+  \********************************************************************/
 /***/ (() => {
 
 /* global AFRAME */
@@ -4710,7 +4710,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var aframe__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(aframe__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _plugins_aframe_keyboard_min__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/aframe-keyboard.min */ "./src/plugins/aframe-keyboard.min.js");
 /* harmony import */ var _plugins_aframe_keyboard_min__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_plugins_aframe_keyboard_min__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var super_hands__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! super-hands */ "../aframe-super-hands-component/index.js");
+/* harmony import */ var super_hands__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! super-hands */ "./aframe-super-hands-component/index.js");
 /* harmony import */ var super_hands__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(super_hands__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _settings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./settings */ "./src/settings.js");
 /* harmony import */ var _components_border__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/border */ "./src/components/border.js");
