@@ -1,7 +1,8 @@
 import "./plugins/eventListenerListPlugin"; // Get all event listeners for DOM elements
 import Deepmerge from "deepmerge";
 import "aframe";
-import "aframe-gif-shader";
+
+// import "aframe-gif-shader";
 import "./plugins/aframe-keyboard.min";
 import "super-hands";
 import Settings from "./settings";
@@ -108,15 +109,18 @@ export default class Web2VR {
     }
 
     start() {
-        this.findHoverCss();
+        // Return a promise that will resolve when the VR elements are added / scene is loaded.
+        return new Promise((resolve, reject) => {
+            this.findHoverCss();
 
-        if (!this.aframe.scene.hasLoaded)
-            this.aframe.scene.addEventListener("loaded", this.init(), { once: true });
-        else
-            this.init();
+            if (!this.aframe.scene.hasLoaded)
+                this.aframe.scene.addEventListener("loaded", this.init(resolve, reject), { once: true });
+            else
+                this.init(resolve, reject);    
+        });
     }
 
-    init() {
+    init(resolve, reject) {
         this.aframe.createContainer(this);
         this.aframe.createSky();
         this.aframe.createControllers();
@@ -126,6 +130,7 @@ export default class Web2VR {
         this.scroll = new Scroll(this);
 
         this.allLoadedUpdate();
+        resolve();
     }
 
     // update once after all images are loaded in the dom

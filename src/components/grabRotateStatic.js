@@ -1,6 +1,6 @@
 AFRAME.registerComponent("vr-grab-rotate-static", {
     tick: function () {
-        if (this.el.components["grabbable"].grabbed) {
+        if (this.el.components["sh-grabbable"].grabbed) {
             // update clipping when moving
             if (this.el.web2vr.scroll.hasScroll) {
                 for (const element of this.el.web2vr.elements)
@@ -8,7 +8,7 @@ AFRAME.registerComponent("vr-grab-rotate-static", {
             }
 
             const obj = this.el.object3D;
-            const hand = this.el.components["grabbable"].grabbers[0].object3D;
+            const hand = this.el.components["sh-grabbable"].grabbers[0].object3D;
 
             obj.rotation.y = Math.atan2(hand.position.x - (obj.position.x + this.el.children[0].getAttribute("width") / 2), hand.position.z - obj.position.z);
 

@@ -59,7 +59,7 @@ export default class AframeContext {
             parentElement.appendChild(this.container);
         else {
             this.container.setAttribute("vr-grab-rotate-static", "");
-            this.container.setAttribute("grabbable", "");
+            this.container.setAttribute("sh-grabbable", "");
             this.container.setAttribute("stretchable", "");
             this.scene.appendChild(this.container);
         }
@@ -115,7 +115,7 @@ export default class AframeContext {
             this.keyboard = document.createElement("a-entity");
             this.keyboard.id = "vr-keyboard";
             this.keyboard.setAttribute("a-keyboard", "");
-            this.keyboard.setAttribute("grabbable", "");
+            this.keyboard.setAttribute("sh-grabbable", "");
             this.scene.appendChild(this.keyboard);
             this.keyboard.object3D.visible = false;
 

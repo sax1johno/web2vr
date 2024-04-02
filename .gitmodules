@@ -1,0 +1,6 @@
+[submodule "aframe-super-hands-component"]
+	path = aframe-super-hands-component
+	url = git@github.com:sax1johno/aframe-super-hands-component.git
+[submodule "aframe-gif-shader"]
+	path = aframe-gif-shader
+	url = git@github.com:sax1johno/aframe-gif-shader.git
