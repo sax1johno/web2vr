@@ -4468,10 +4468,10 @@ var Position = /*#__PURE__*/function () {
 
 /***/ }),
 
-/***/ "./node_modules/deepmerge/dist/cjs.js":
-/*!********************************************!*\
-  !*** ./node_modules/deepmerge/dist/cjs.js ***!
-  \********************************************/
+/***/ "../node_modules/deepmerge/dist/cjs.js":
+/*!*********************************************!*\
+  !*** ../node_modules/deepmerge/dist/cjs.js ***!
+  \*********************************************/
 /***/ ((module) => {
 
 "use strict";
@@ -4704,7 +4704,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _plugins_eventListenerListPlugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./plugins/eventListenerListPlugin */ "./src/plugins/eventListenerListPlugin.js");
 /* harmony import */ var _plugins_eventListenerListPlugin__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_plugins_eventListenerListPlugin__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! deepmerge */ "./node_modules/deepmerge/dist/cjs.js");
+/* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! deepmerge */ "../node_modules/deepmerge/dist/cjs.js");
 /* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(deepmerge__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var aframe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! aframe */ "aframe");
 /* harmony import */ var aframe__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(aframe__WEBPACK_IMPORTED_MODULE_2__);
@@ -4986,22 +4986,41 @@ var Web2VR = /*#__PURE__*/function () {
       var parentElement = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       var layer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
       if (currentNode.tagName == "svg") this.generateStyleDefs(currentNode);
-      var element = this.addElement(currentNode, parentElement, layer);
-      // not supported tags or svg element that we dont need to check its children
-      if (!element || element instanceof _elements_svgElement__WEBPACK_IMPORTED_MODULE_19__["default"]) return;
-      if (currentNode.childNodes && currentNode.childNodes.length > 0) {
-        layer++;
-        var _iterator4 = _createForOfIteratorHelper(currentNode.childNodes),
+
+      // If this is a slot element, we're using a web component and need to fetch the child elements using .assignedNodes()
+      if (currentNode.tagName == "SLOT") {
+        // Note: we don't increase the layer here because slots don't render directly.
+        console.log("*********Slot element found");
+        var assignedNodes = currentNode.assignedNodes();
+        var _iterator4 = _createForOfIteratorHelper(assignedNodes),
           _step4;
         try {
           for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-            var child = _step4.value;
-            this.addElementChildren(child, element, layer);
+            var assignedNode = _step4.value;
+            this.addElementChildren(assignedNode, parentElement, layer);
           }
         } catch (err) {
           _iterator4.e(err);
         } finally {
           _iterator4.f();
+        }
+      }
+      var element = this.addElement(currentNode, parentElement, layer);
+      // not supported tags or svg element that we dont need to check its children
+      if (!element || element instanceof _elements_svgElement__WEBPACK_IMPORTED_MODULE_19__["default"]) return;
+      if (currentNode.childNodes && currentNode.childNodes.length > 0) {
+        layer++;
+        var _iterator5 = _createForOfIteratorHelper(currentNode.childNodes),
+          _step5;
+        try {
+          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+            var child = _step5.value;
+            this.addElementChildren(child, element, layer);
+          }
+        } catch (err) {
+          _iterator5.e(err);
+        } finally {
+          _iterator5.f();
         }
       }
     }
@@ -5012,36 +5031,36 @@ var Web2VR = /*#__PURE__*/function () {
       this.addElementChildren(this.container);
       // observer dom element changes and for newly added and deleted dom elements
       this.observer = new MutationObserver(function (mutations) {
-        var _iterator5 = _createForOfIteratorHelper(mutations),
-          _step5;
+        var _iterator6 = _createForOfIteratorHelper(mutations),
+          _step6;
         try {
-          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-            var mutation = _step5.value;
+          for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+            var mutation = _step6.value;
             var emptyRemove = false;
-            var _iterator6 = _createForOfIteratorHelper(mutation.removedNodes),
-              _step6;
-            try {
-              for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-                var node = _step6.value;
-                // not empty textNode
-                if (!(node.nodeType == Node.TEXT_NODE && !node.nodeValue.trim())) _this3.removeElement(node.element);else emptyRemove = true;
-              }
-            } catch (err) {
-              _iterator6.e(err);
-            } finally {
-              _iterator6.f();
-            }
-            var _iterator7 = _createForOfIteratorHelper(mutation.addedNodes),
+            var _iterator7 = _createForOfIteratorHelper(mutation.removedNodes),
               _step7;
             try {
               for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-                var _node = _step7.value;
-                _this3.addElementChildren(_node, mutation.target.element, mutation.target.element.layer + 1);
+                var node = _step7.value;
+                // not empty textNode
+                if (!(node.nodeType == Node.TEXT_NODE && !node.nodeValue.trim())) _this3.removeElement(node.element);else emptyRemove = true;
               }
             } catch (err) {
               _iterator7.e(err);
             } finally {
               _iterator7.f();
+            }
+            var _iterator8 = _createForOfIteratorHelper(mutation.addedNodes),
+              _step8;
+            try {
+              for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+                var _node = _step8.value;
+                _this3.addElementChildren(_node, mutation.target.element, mutation.target.element.layer + 1);
+              }
+            } catch (err) {
+              _iterator8.e(err);
+            } finally {
+              _iterator8.f();
             }
             if (!emptyRemove) {
               // when adding new nodes we also need to check for new loaded images
@@ -5049,9 +5068,9 @@ var Web2VR = /*#__PURE__*/function () {
             }
           }
         } catch (err) {
-          _iterator5.e(err);
+          _iterator6.e(err);
         } finally {
-          _iterator5.f();
+          _iterator6.f();
         }
       });
       this.observer.observe(this.container, this.observerConfig);
@@ -5064,17 +5083,17 @@ var Web2VR = /*#__PURE__*/function () {
       if (this.updating) {
         // using try and catch because sometimes when element is removed it calls update after and it wont find element, the errors doesnt matter because the final result is the same
         try {
-          var _iterator8 = _createForOfIteratorHelper(this.elements),
-            _step8;
+          var _iterator9 = _createForOfIteratorHelper(this.elements),
+            _step9;
           try {
-            for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
-              var element = _step8.value;
+            for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
+              var element = _step9.value;
               element.update();
             }
           } catch (err) {
-            _iterator8.e(err);
+            _iterator9.e(err);
           } finally {
-            _iterator8.f();
+            _iterator9.f();
           }
         } catch (err) {
           console.error(err);

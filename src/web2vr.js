@@ -234,6 +234,16 @@ export default class Web2VR {
     addElementChildren(currentNode, parentElement = null, layer = 0) {
         if (currentNode.tagName == "svg")
             this.generateStyleDefs(currentNode);
+        
+        // If this is a slot element, we're using a web component and need to fetch the child elements using .assignedNodes()
+        if (currentNode.tagName == "SLOT") {
+            // Note: we don't increase the layer here because slots don't render directly.
+            console.log("*********Slot element found");
+            const assignedNodes = currentNode.assignedNodes();
+            for (const assignedNode of assignedNodes) {
+                this.addElementChildren(assignedNode, parentElement, layer);
+            }
+        } 
 
         const element = this.addElement(currentNode, parentElement, layer);
         // not supported tags or svg element that we dont need to check its children
