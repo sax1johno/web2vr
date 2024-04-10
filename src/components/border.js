@@ -36,7 +36,7 @@ AFRAME.registerComponent("vr-border", {
             this.borderObject.material.color = new THREE.Color(this.data.color);
     },
     updateBorder: function () {
-        if (this.el.element.visible) {
+        if (this.el.element?.visible) {
             this.running = true;
             this.borderObject.material.visible = true;
         }

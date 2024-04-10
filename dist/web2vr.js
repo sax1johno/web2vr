@@ -1700,23 +1700,26 @@ var AssetManager = /*#__PURE__*/function () {
 
 AFRAME.registerComponent("vr-animate", {
   init: function init() {
+    var _this$el$element, _this$el$element2, _this$el$element3, _this$el$element4;
     this.running = false;
     // listenes for css animation and translation
-    this.el.element.domElement.addEventListener("animationstart", this.startAnimation.bind(this));
-    this.el.element.domElement.addEventListener("animationend", this.stopAnimation.bind(this));
-    this.el.element.domElement.addEventListener("transitionstart", this.startAnimation.bind(this));
-    this.el.element.domElement.addEventListener("transitionend", this.stopAnimation.bind(this));
+    (_this$el$element = this.el.element) === null || _this$el$element === void 0 || _this$el$element.domElement.addEventListener("animationstart", this.startAnimation.bind(this));
+    (_this$el$element2 = this.el.element) === null || _this$el$element2 === void 0 || _this$el$element2.domElement.addEventListener("animationend", this.stopAnimation.bind(this));
+    (_this$el$element3 = this.el.element) === null || _this$el$element3 === void 0 || _this$el$element3.domElement.addEventListener("transitionstart", this.startAnimation.bind(this));
+    (_this$el$element4 = this.el.element) === null || _this$el$element4 === void 0 || _this$el$element4.domElement.addEventListener("transitionend", this.stopAnimation.bind(this));
   },
   tick: function tick() {
-    if (this.running) this.el.element.web2vr.update();
+    var _this$el$element5;
+    if (this.running) (_this$el$element5 = this.el.element) === null || _this$el$element5 === void 0 || _this$el$element5.web2vr.update();
   },
   startAnimation: function startAnimation() {
     this.running = true;
   },
   stopAnimation: function stopAnimation() {
+    var _this$el$element6;
     this.running = false;
     // one final update
-    this.el.element.web2vr.update();
+    (_this$el$element6 = this.el.element) === null || _this$el$element6 === void 0 || _this$el$element6.web2vr.update();
   }
 });
 
@@ -1766,7 +1769,8 @@ AFRAME.registerComponent("vr-border", {
     if (this.el.element.borderColor) this.borderObject.material.color = this.el.element.borderColor;else this.borderObject.material.color = new THREE.Color(this.data.color);
   },
   updateBorder: function updateBorder() {
-    if (this.el.element.visible) {
+    var _this$el$element;
+    if ((_this$el$element = this.el.element) !== null && _this$el$element !== void 0 && _this$el$element.visible) {
       this.running = true;
       this.borderObject.material.visible = true;
     } else this.borderObject.material.visible = false;
@@ -2405,6 +2409,7 @@ var Element = /*#__PURE__*/function () {
   }, {
     key: "update",
     value: function update() {
+      var _this$web2vr$scroll, _this$web2vr$scroll2;
       var clientRect = this.domElement.getBoundingClientRect();
 
       // its not on the screen
@@ -2427,7 +2432,7 @@ var Element = /*#__PURE__*/function () {
       }
 
       // set fixed container height if its using scrollBody, best is to move this code outside update loop for future
-      if (this.web2vr.scroll.hasScroll && this.domElement == this.web2vr.container && this.web2vr.scroll.scrollBody) clientRect.height = this.web2vr.settings.scrollWindowHeight;
+      if ((_this$web2vr$scroll = this.web2vr.scroll) !== null && _this$web2vr$scroll !== void 0 && _this$web2vr$scroll.hasScroll && this.domElement == this.web2vr.container && (_this$web2vr$scroll2 = this.web2vr.scroll) !== null && _this$web2vr$scroll2 !== void 0 && _this$web2vr$scroll2.scrollBody) clientRect.height = this.web2vr.settings.scrollWindowHeight;
       this.position.updatePosition(clientRect);
       this.checkVisible();
       if (this.visible) {
@@ -2556,7 +2561,8 @@ var Element = /*#__PURE__*/function () {
     value: function getClippingContext() {
       var output = null;
       if (this.domElement.parentNode && this.domElement.parentNode.element && this.domElement.parentNode.element.clippingContext) output = this.domElement.parentNode.element.clippingContext;else {
-        if (this.style.overflow && this.style.overflow == "hidden" || this.web2vr.scroll.hasScroll && this.domElement == this.web2vr.container || this.web2vr.settings.forceClipping && this.domElement == this.web2vr.container) {
+        var _this$web2vr$scroll3;
+        if (this.style.overflow && this.style.overflow == "hidden" || (_this$web2vr$scroll3 = this.web2vr.scroll) !== null && _this$web2vr$scroll3 !== void 0 && _this$web2vr$scroll3.hasScroll && this.domElement == this.web2vr.container || this.web2vr.settings.forceClipping && this.domElement == this.web2vr.container) {
           // ignore if its svg
           if (this.domElement.tagName != "svg") {
             var clippingContext = {};
@@ -2593,6 +2599,7 @@ var Element = /*#__PURE__*/function () {
         setTimeout(function () {
           _this3.updateClipping();
         }, 200); // if it doesnt work use this
+        // return new Promise();
       }
     }
   }, {
@@ -4732,6 +4739,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _elements_svgElement__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./elements/svgElement */ "./src/elements/svgElement.js");
 /* harmony import */ var _elements_canvasElement__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./elements/canvasElement */ "./src/elements/canvasElement.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -4871,52 +4881,66 @@ var Web2VR = /*#__PURE__*/function () {
       // Return a promise that will resolve when the VR elements are added / scene is loaded.
       return new Promise(function (resolve, reject) {
         _this.findHoverCss();
-        if (!_this.aframe.scene.hasLoaded) _this.aframe.scene.addEventListener("loaded", _this.init(resolve, reject), {
-          once: true
-        });else _this.init(resolve, reject);
+        if (!_this.aframe.scene.hasLoaded) {
+          _this.aframe.scene.addEventListener("loaded", function (resolve, init, context) {
+            init.call(context);
+            resolve();
+          }(resolve, _this.init, _this), {
+            once: true
+          });
+        } else _this.init().then(function () {
+          resolve();
+        });
       });
     }
   }, {
     key: "init",
-    value: function init(resolve, reject) {
+    value: function init() {
+      var _this2 = this;
       this.aframe.createContainer(this);
       this.aframe.createSky();
       this.aframe.createControllers();
-      this.convertToVR();
       // scroll feature
-      this.scroll = new _scroll__WEBPACK_IMPORTED_MODULE_9__["default"](this);
-      this.allLoadedUpdate();
-      resolve();
+
+      return this.convertToVR().then(function () {
+        _this2.scroll = new _scroll__WEBPACK_IMPORTED_MODULE_9__["default"](_this2);
+        return _this2.allLoadedUpdate();
+      }).then(function () {
+        return _this2.update();
+      });
     }
 
     // update once after all images are loaded in the dom
   }, {
     key: "allLoadedUpdate",
     value: function allLoadedUpdate() {
-      var _this2 = this;
-      var interval = setInterval(function () {
-        var allLoaded = true;
-        var _iterator2 = _createForOfIteratorHelper(_this2.elements),
-          _step2;
-        try {
-          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-            var element = _step2.value;
-            if (element instanceof _elements_imageElement__WEBPACK_IMPORTED_MODULE_13__["default"] && !element.loaded) allLoaded = false;
+      var _this3 = this;
+      return new Promise(function (resolve, reject) {
+        var interval = setInterval(function () {
+          var allLoaded = true;
+          var _iterator2 = _createForOfIteratorHelper(_this3.elements),
+            _step2;
+          try {
+            for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+              var element = _step2.value;
+              if (element instanceof _elements_imageElement__WEBPACK_IMPORTED_MODULE_13__["default"] && !element.loaded) allLoaded = false;
+            }
+          } catch (err) {
+            _iterator2.e(err);
+          } finally {
+            _iterator2.f();
           }
-        } catch (err) {
-          _iterator2.e(err);
-        } finally {
-          _iterator2.f();
-        }
-        if (allLoaded) {
-          _this2.update();
-          clearInterval(interval);
-        }
-      }, 100);
+          if (allLoaded) {
+            resolve();
+            clearInterval(interval);
+          }
+        }, 100);
+      });
     }
   }, {
     key: "addElement",
     value: function addElement(domElement, parentElement, layer) {
+      var _this4 = this;
       // ignore tag if in ignoreTags list or text element(vr-span) is already added
       if (this.settings.ignoreTags.includes(domElement.tagName) || domElement.classList && domElement.classList.contains("vr-span")) return null;
       var element = null;
@@ -4929,7 +4953,13 @@ var Web2VR = /*#__PURE__*/function () {
         // dont want observer to listen changes when adding(replacing) span text into dom
         if (this.observer) this.observer.disconnect();
         domElement.replaceWith(span);
-        if (this.observer) this.observer.observe(this.container, this.observerConfig);
+        if (this.observer) {
+          this.observer.observe(this.container, this.observerConfig);
+          // We need to add the observer to every slot inside the container as well.
+          this.container.querySelectorAll("slot").forEach(function (slot) {
+            _this4.observer.observe(slot, _this4.observerConfig);
+          });
+        }
         element = new _elements_textElement__WEBPACK_IMPORTED_MODULE_12__["default"](this, span, layer);
       }
       // for future convert this to switch statement
@@ -4948,11 +4978,24 @@ var Web2VR = /*#__PURE__*/function () {
       if (this.settings.debug) console.log("Added element", element);
 
       // init element and add element to parent children when aframe entity is loaded(play)
-      var onLoaded = function onLoaded(event) {
-        if (parentElement) parentElement.childElements.add(element);
-        element.init();
-        element.update();
-      };
+      var onLoaded = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(event) {
+          return _regeneratorRuntime().wrap(function _callee$(_context) {
+            while (1) switch (_context.prev = _context.next) {
+              case 0:
+                if (parentElement) parentElement.childElements.add(element);
+                element.init();
+                element.update();
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }, _callee);
+        }));
+        return function onLoaded(_x) {
+          return _ref.apply(this, arguments);
+        };
+      }();
       element.entity.addEventListener("play", onLoaded, {
         once: true
       });
@@ -4983,124 +5026,159 @@ var Web2VR = /*#__PURE__*/function () {
   }, {
     key: "addElementChildren",
     value: function addElementChildren(currentNode) {
+      var _this5 = this;
       var parentElement = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
       var layer = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-      if (currentNode.tagName == "svg") this.generateStyleDefs(currentNode);
+      return new Promise(function (resolve, reject) {
+        if (currentNode.tagName == "svg") _this5.generateStyleDefs(currentNode);
 
-      // If this is a slot element, we're using a web component and need to fetch the child elements using .assignedNodes()
-      if (currentNode.tagName == "SLOT") {
-        // Note: we don't increase the layer here because slots don't render directly.
-        console.log("*********Slot element found");
-        var assignedNodes = currentNode.assignedNodes();
-        var _iterator4 = _createForOfIteratorHelper(assignedNodes),
-          _step4;
-        try {
-          for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
-            var assignedNode = _step4.value;
-            this.addElementChildren(assignedNode, parentElement, layer);
+        // If this is a slot element, we're using a web component and need to fetch the child elements using .assignedNodes()
+        if (currentNode.tagName == "SLOT") {
+          // Note: we don't increase the layer here because slots don't render directly.
+          // console.log("*********Slot element found");
+          var assignedNodes = currentNode.assignedNodes();
+          var promisesToResolve = [];
+          var _iterator4 = _createForOfIteratorHelper(assignedNodes),
+            _step4;
+          try {
+            for (_iterator4.s(); !(_step4 = _iterator4.n()).done;) {
+              var assignedNode = _step4.value;
+              promisesToResolve.push(_this5.addElementChildren(assignedNode, parentElement, layer));
+            }
+          } catch (err) {
+            _iterator4.e(err);
+          } finally {
+            _iterator4.f();
           }
-        } catch (err) {
-          _iterator4.e(err);
-        } finally {
-          _iterator4.f();
+          Promise.all(promisesToResolve).then(function () {
+            resolve();
+          });
         }
-      }
-      var element = this.addElement(currentNode, parentElement, layer);
-      // not supported tags or svg element that we dont need to check its children
-      if (!element || element instanceof _elements_svgElement__WEBPACK_IMPORTED_MODULE_19__["default"]) return;
-      if (currentNode.childNodes && currentNode.childNodes.length > 0) {
-        layer++;
-        var _iterator5 = _createForOfIteratorHelper(currentNode.childNodes),
-          _step5;
-        try {
-          for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
-            var child = _step5.value;
-            this.addElementChildren(child, element, layer);
+        var element = _this5.addElement(currentNode, parentElement, layer);
+        // not supported tags or svg element that we dont need to check its children
+        if (!element || element instanceof _elements_svgElement__WEBPACK_IMPORTED_MODULE_19__["default"]) return;
+        if (currentNode.childNodes && currentNode.childNodes.length > 0) {
+          layer++;
+          var promisesToResolve = [];
+          var _iterator5 = _createForOfIteratorHelper(currentNode.childNodes),
+            _step5;
+          try {
+            for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
+              var child = _step5.value;
+              promisesToResolve.push(_this5.addElementChildren(child, element, layer));
+            }
+          } catch (err) {
+            _iterator5.e(err);
+          } finally {
+            _iterator5.f();
           }
-        } catch (err) {
-          _iterator5.e(err);
-        } finally {
-          _iterator5.f();
+          Promise.all(promisesToResolve).then(function () {
+            resolve();
+          });
         }
-      }
+      });
     }
   }, {
     key: "convertToVR",
     value: function convertToVR() {
-      var _this3 = this;
-      this.addElementChildren(this.container);
-      // observer dom element changes and for newly added and deleted dom elements
-      this.observer = new MutationObserver(function (mutations) {
-        var _iterator6 = _createForOfIteratorHelper(mutations),
-          _step6;
-        try {
-          for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
-            var mutation = _step6.value;
-            var emptyRemove = false;
-            var _iterator7 = _createForOfIteratorHelper(mutation.removedNodes),
-              _step7;
+      var _this6 = this;
+      return new Promise(function (resolve, reject) {
+        _this6.addElementChildren(_this6.container).then(function () {
+          // observer dom element changes and for newly added and deleted dom elements
+          _this6.observer = new MutationObserver(function (mutations) {
+            var _iterator6 = _createForOfIteratorHelper(mutations),
+              _step6;
             try {
-              for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
-                var node = _step7.value;
-                // not empty textNode
-                if (!(node.nodeType == Node.TEXT_NODE && !node.nodeValue.trim())) _this3.removeElement(node.element);else emptyRemove = true;
+              for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
+                var mutation = _step6.value;
+                console.log("Mutation encountered", mutation);
+                var emptyRemove = false;
+                var _iterator7 = _createForOfIteratorHelper(mutation.removedNodes),
+                  _step7;
+                try {
+                  for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
+                    var node = _step7.value;
+                    // not empty textNode
+                    if (!(node.nodeType == Node.TEXT_NODE && !node.nodeValue.trim())) _this6.removeElement(node.element);else emptyRemove = true;
+                  }
+                } catch (err) {
+                  _iterator7.e(err);
+                } finally {
+                  _iterator7.f();
+                }
+                var _iterator8 = _createForOfIteratorHelper(mutation.addedNodes),
+                  _step8;
+                try {
+                  for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
+                    var _node = _step8.value;
+                    _this6.addElementChildren(_node, mutation.target.element, mutation.target.element.layer + 1);
+                  }
+                } catch (err) {
+                  _iterator8.e(err);
+                } finally {
+                  _iterator8.f();
+                }
+                if (!emptyRemove) {
+                  // when adding new nodes we also need to check for new loaded images
+                  if (mutation.addedNodes.length > 0) _this6.allLoadedUpdate();else _this6.update();
+                }
+
+                // Listen for text changes and update when they occur.
+                if (mutation.type == "characterData") {
+                  _this6.update();
+                }
               }
             } catch (err) {
-              _iterator7.e(err);
+              _iterator6.e(err);
             } finally {
-              _iterator7.f();
+              _iterator6.f();
             }
-            var _iterator8 = _createForOfIteratorHelper(mutation.addedNodes),
-              _step8;
-            try {
-              for (_iterator8.s(); !(_step8 = _iterator8.n()).done;) {
-                var _node = _step8.value;
-                _this3.addElementChildren(_node, mutation.target.element, mutation.target.element.layer + 1);
-              }
-            } catch (err) {
-              _iterator8.e(err);
-            } finally {
-              _iterator8.f();
-            }
-            if (!emptyRemove) {
-              // when adding new nodes we also need to check for new loaded images
-              if (mutation.addedNodes.length > 0) _this3.allLoadedUpdate();else _this3.update();
-            }
-          }
-        } catch (err) {
-          _iterator6.e(err);
-        } finally {
-          _iterator6.f();
-        }
+          });
+          _this6.observer.observe(_this6.container, _this6.observerConfig);
+
+          // We need to add the observer to every slot inside the container as well.
+          _this6.container.querySelectorAll("slot").forEach(function (slot) {
+            slot.addEventListener("slotchange", function (ev) {
+              // console.log("Slot change event", ev);
+            });
+            _this6.observer.observe(slot, _this6.observerConfig);
+          });
+          resolve();
+        });
       });
-      this.observer.observe(this.container, this.observerConfig);
     }
   }, {
     key: "update",
     value: function update() {
-      // we check for updating so we dont do multiple updating at same time from the async functions
-      this.updating = true;
-      if (this.updating) {
-        // using try and catch because sometimes when element is removed it calls update after and it wont find element, the errors doesnt matter because the final result is the same
-        try {
-          var _iterator9 = _createForOfIteratorHelper(this.elements),
-            _step9;
+      var _this7 = this;
+      return new Promise(function (resolve, reject) {
+        // we check for updating so we dont do multiple updating at same time from the async functions
+        _this7.updating = true;
+        if (_this7.updating) {
+          var _this7$scroll;
+          // using try and catch because sometimes when element is removed it calls update after and it wont find element, the errors doesnt matter because the final result is the same
           try {
-            for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
-              var element = _step9.value;
-              element.update();
+            var _iterator9 = _createForOfIteratorHelper(_this7.elements),
+              _step9;
+            try {
+              for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
+                var element = _step9.value;
+                element.update();
+              }
+            } catch (err) {
+              _iterator9.e(err);
+            } finally {
+              _iterator9.f();
             }
           } catch (err) {
-            _iterator9.e(err);
-          } finally {
-            _iterator9.f();
+            console.error(err);
           }
-        } catch (err) {
-          console.error(err);
+          (_this7$scroll = _this7.scroll) === null || _this7$scroll === void 0 || _this7$scroll.update();
+          _this7.updating = false;
+          resolve();
         }
-        this.scroll.update();
-        this.updating = false;
-      }
+        resolve();
+      });
     }
   }]);
 }();

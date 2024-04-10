@@ -160,7 +160,7 @@ export default class Element {
         }
 
         // set fixed container height if its using scrollBody, best is to move this code outside update loop for future
-        if (this.web2vr.scroll.hasScroll && this.domElement == this.web2vr.container && this.web2vr.scroll.scrollBody)
+        if (this.web2vr.scroll?.hasScroll && this.domElement == this.web2vr.container && this.web2vr.scroll?.scrollBody)
             clientRect.height = this.web2vr.settings.scrollWindowHeight;
         this.position.updatePosition(clientRect);
 
@@ -298,7 +298,7 @@ export default class Element {
         if (this.domElement.parentNode && this.domElement.parentNode.element && this.domElement.parentNode.element.clippingContext)
             output = this.domElement.parentNode.element.clippingContext;
         else {
-            if ((this.style.overflow && this.style.overflow == "hidden") || (this.web2vr.scroll.hasScroll && this.domElement == this.web2vr.container) || (this.web2vr.settings.forceClipping && this.domElement == this.web2vr.container)) {
+            if ((this.style.overflow && this.style.overflow == "hidden") || (this.web2vr.scroll?.hasScroll && this.domElement == this.web2vr.container) || (this.web2vr.settings.forceClipping && this.domElement == this.web2vr.container)) {
                 // ignore if its svg
                 if (this.domElement.tagName != "svg") {
                     let clippingContext = {};
@@ -335,6 +335,7 @@ export default class Element {
 
             //this.updateClipping();
             setTimeout(() => { this.updateClipping(); }, 200); // if it doesnt work use this
+            // return new Promise();
         }
     }
 

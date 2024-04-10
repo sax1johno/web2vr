@@ -113,38 +113,48 @@ export default class Web2VR {
         return new Promise((resolve, reject) => {
             this.findHoverCss();
 
-            if (!this.aframe.scene.hasLoaded)
-                this.aframe.scene.addEventListener("loaded", this.init(resolve, reject), { once: true });
-            else
-                this.init(resolve, reject);    
+            if (!this.aframe.scene.hasLoaded) {
+                this.aframe.scene.addEventListener("loaded", 
+                (function(resolve, init, context) { 
+                    init.call(context);
+                    resolve();
+                })(resolve, this.init, this), { once: true });
+            } else
+                this.init().then(() => {
+                    resolve();
+            })
         });
     }
 
-    init(resolve, reject) {
+    init() {
         this.aframe.createContainer(this);
         this.aframe.createSky();
         this.aframe.createControllers();
-
-        this.convertToVR();
         // scroll feature
-        this.scroll = new Scroll(this);
 
-        this.allLoadedUpdate();
-        resolve();
+        return this.convertToVR()
+        .then(() => {
+            this.scroll = new Scroll(this);
+            return this.allLoadedUpdate();
+        }).then(() => {
+            return this.update();
+        })
     }
 
     // update once after all images are loaded in the dom
     allLoadedUpdate() {
-        const interval = setInterval(() => {
-            let allLoaded = true;
-            for (const element of this.elements)
-                if (element instanceof ImageElement && !element.loaded)
-                    allLoaded = false;
-            if (allLoaded) {
-                this.update();
-                clearInterval(interval);
-            }
-        }, 100);
+        return new Promise((resolve, reject) => {
+            const interval = setInterval(() => {
+                let allLoaded = true;
+                for (const element of this.elements)
+                    if (element instanceof ImageElement && !element.loaded)
+                        allLoaded = false;
+                if (allLoaded) {
+                    resolve();
+                    clearInterval(interval);
+                }
+            }, 100);    
+        });
     }
 
     addElement(domElement, parentElement, layer) {
@@ -163,8 +173,13 @@ export default class Web2VR {
             if (this.observer)
                 this.observer.disconnect();
             domElement.replaceWith(span);
-            if (this.observer)
+            if (this.observer) {
                 this.observer.observe(this.container, this.observerConfig);
+                // We need to add the observer to every slot inside the container as well.
+                this.container.querySelectorAll("slot").forEach((slot) => {
+                    this.observer.observe(slot, this.observerConfig);
+                });
+            }
 
             element = new TextElement(this, span, layer);
         }
@@ -209,7 +224,7 @@ export default class Web2VR {
             console.log("Added element", element);
 
         // init element and add element to parent children when aframe entity is loaded(play)
-        const onLoaded = (event) => {
+        const onLoaded = async (event) => {
             if (parentElement)
                 parentElement.childElements.add(element);
             element.init();
@@ -232,74 +247,108 @@ export default class Web2VR {
 
     // start at root and interate over child nodes recursively
     addElementChildren(currentNode, parentElement = null, layer = 0) {
-        if (currentNode.tagName == "svg")
+        return new Promise((resolve, reject) => {
+            if (currentNode.tagName == "svg")
             this.generateStyleDefs(currentNode);
         
-        // If this is a slot element, we're using a web component and need to fetch the child elements using .assignedNodes()
-        if (currentNode.tagName == "SLOT") {
-            // Note: we don't increase the layer here because slots don't render directly.
-            console.log("*********Slot element found");
-            const assignedNodes = currentNode.assignedNodes();
-            for (const assignedNode of assignedNodes) {
-                this.addElementChildren(assignedNode, parentElement, layer);
+            // If this is a slot element, we're using a web component and need to fetch the child elements using .assignedNodes()
+            if (currentNode.tagName == "SLOT") {
+                // Note: we don't increase the layer here because slots don't render directly.
+                // console.log("*********Slot element found");
+                const assignedNodes = currentNode.assignedNodes();
+                var promisesToResolve = [];
+                for (const assignedNode of assignedNodes) {
+                    promisesToResolve.push(this.addElementChildren(assignedNode, parentElement, layer));
+                }
+                Promise.all(promisesToResolve).then(() => {
+                    resolve();
+                })
             }
-        } 
 
-        const element = this.addElement(currentNode, parentElement, layer);
-        // not supported tags or svg element that we dont need to check its children
-        if (!element || element instanceof SvgElement)
-            return;
+            const element = this.addElement(currentNode, parentElement, layer);
+            // not supported tags or svg element that we dont need to check its children
+            if (!element || element instanceof SvgElement)
+                return;
 
-        if (currentNode.childNodes && currentNode.childNodes.length > 0) {
-            layer++;
-            for (const child of currentNode.childNodes)
-                this.addElementChildren(child, element, layer);
-        }
+            if (currentNode.childNodes && currentNode.childNodes.length > 0) {
+                layer++;
+                var promisesToResolve = [];
+                for (const child of currentNode.childNodes)
+                    promisesToResolve.push(this.addElementChildren(child, element, layer));
+                Promise.all(promisesToResolve).then(() => {
+                    resolve();
+                })
+            }
+        })
     }
 
     convertToVR() {
-        this.addElementChildren(this.container);
-        // observer dom element changes and for newly added and deleted dom elements
-        this.observer = new MutationObserver((mutations) => {
-            for (const mutation of mutations) {
-                let emptyRemove = false;
-                for (const node of mutation.removedNodes) {
-                    // not empty textNode
-                    if (!(node.nodeType == Node.TEXT_NODE && !node.nodeValue.trim()))
-                        this.removeElement(node.element);
-                    else
-                        emptyRemove = true;
-                }
-
-                for (const node of mutation.addedNodes)
-                    this.addElementChildren(node, mutation.target.element, mutation.target.element.layer + 1);
-
-                if (!emptyRemove) {
-                    // when adding new nodes we also need to check for new loaded images
-                    if (mutation.addedNodes.length > 0)
-                        this.allLoadedUpdate();
-                    else
-                        this.update();
-                }
-            }
-        });
-        this.observer.observe(this.container, this.observerConfig);
+        return new Promise((resolve, reject) => {
+            this.addElementChildren(this.container)
+            .then(() => {
+                // observer dom element changes and for newly added and deleted dom elements
+                this.observer = new MutationObserver((mutations) => {
+                    for (const mutation of mutations) {
+                        console.log("Mutation encountered", mutation);
+                        let emptyRemove = false;
+                        for (const node of mutation.removedNodes) {
+                            // not empty textNode
+                            if (!(node.nodeType == Node.TEXT_NODE && !node.nodeValue.trim()))
+                                this.removeElement(node.element);
+                            else
+                                emptyRemove = true;
+                        }
+        
+                        for (const node of mutation.addedNodes)
+                            this.addElementChildren(node, mutation.target.element, mutation.target.element.layer + 1);
+        
+                        if (!emptyRemove) {
+                            // when adding new nodes we also need to check for new loaded images
+                            if (mutation.addedNodes.length > 0)
+                                this.allLoadedUpdate();
+                            else
+                                this.update();
+                        }
+        
+                        // Listen for text changes and update when they occur.
+                        if (mutation.type == "characterData") {
+                            this.update();
+                        }
+                    }
+                });
+                this.observer.observe(this.container, this.observerConfig);
+        
+                // We need to add the observer to every slot inside the container as well.
+                this.container.querySelectorAll("slot").forEach((slot) => {
+                    slot.addEventListener("slotchange", (ev) => {
+                        // console.log("Slot change event", ev);
+                    });
+                    this.observer.observe(slot, this.observerConfig);
+                });
+                resolve();
+            })
+        })
     }
 
+
     update() {
-        // we check for updating so we dont do multiple updating at same time from the async functions
-        this.updating = true;
-        if (this.updating) {
-            // using try and catch because sometimes when element is removed it calls update after and it wont find element, the errors doesnt matter because the final result is the same
-            try {
-                for (const element of this.elements)
-                    element.update();
+        return new Promise((resolve, reject) => {
+            // we check for updating so we dont do multiple updating at same time from the async functions
+            this.updating = true;
+            if (this.updating) {
+                // using try and catch because sometimes when element is removed it calls update after and it wont find element, the errors doesnt matter because the final result is the same
+                try {
+                    for (const element of this.elements)
+                        element.update();
+                }
+                catch (err) {
+                    console.error(err);
+                }
+                this.scroll?.update();
+                this.updating = false;
+                resolve();
             }
-            catch (err) {
-                console.error(err);
-            }
-            this.scroll.update();
-            this.updating = false;
-        }
+            resolve();
+        });
     }
 }
