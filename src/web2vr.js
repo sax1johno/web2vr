@@ -210,6 +210,11 @@ export default class Web2VR {
             else
                 return;
         }
+        // If this element is hosting a shadow root, we want to make sure elements are observed.
+        else if (!!domElement.shadowRoot) {
+            // console.log("Shadow root found", domElement.shadowRoot);
+            this.addElementChildren(domElement.shadowRoot, parentElement, layer);
+        }
         // any other type of element will be container
         else if (domElement.nodeType == Node.ELEMENT_NODE) {
             element = new ContainerElement(this, domElement, layer);

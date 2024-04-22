@@ -4969,6 +4969,11 @@ var Web2VR = /*#__PURE__*/function () {
           element = new _elements_buttonElement__WEBPACK_IMPORTED_MODULE_18__["default"](this, domElement, layer);
         } else return;
       }
+      // If this element is hosting a shadow root, we want to make sure elements are observed.
+      else if (!!domElement.shadowRoot) {
+        // console.log("Shadow root found", domElement.shadowRoot);
+        this.addElementChildren(domElement.shadowRoot, parentElement, layer);
+      }
       // any other type of element will be container
       else if (domElement.nodeType == Node.ELEMENT_NODE) {
         element = new _elements_containerElement__WEBPACK_IMPORTED_MODULE_11__["default"](this, domElement, layer);
