@@ -17,6 +17,7 @@ export default class Element {
         this.style = window.getComputedStyle(this.domElement);
         this.parentTransform = "none";
         this.needsStartingTransformSize = true;
+        this.initComplete = false;
     }
 
     // call after entity is created in inheriting class
@@ -134,9 +135,20 @@ export default class Element {
         this.initEventHandlers();
 
         this.setupClipping();
+        this.finalizeInit();
+    }
+
+    finalizeInit() {
+        this.initComplete = true;
+        this.domElement.dispatchEvent(new Event('initComplete'));
     }
 
     update() {
+        if (!this.initComplete) {
+            // Try again later.
+            this.domElement.addEventListener(new Event('initComplete'), () => this.update());
+            return;
+        }
         const clientRect = this.domElement.getBoundingClientRect();
 
         // its not on the screen

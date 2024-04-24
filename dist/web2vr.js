@@ -2247,6 +2247,7 @@ var Element = /*#__PURE__*/function () {
     this.style = window.getComputedStyle(this.domElement);
     this.parentTransform = "none";
     this.needsStartingTransformSize = true;
+    this.initComplete = false;
   }
 
   // call after entity is created in inheriting class
@@ -2405,11 +2406,27 @@ var Element = /*#__PURE__*/function () {
       this.entity.setAttribute("height", this.position.height);
       this.initEventHandlers();
       this.setupClipping();
+      this.finalizeInit();
+    }
+  }, {
+    key: "finalizeInit",
+    value: function finalizeInit() {
+      this.initComplete = true;
+      this.domElement.dispatchEvent(new Event('initComplete'));
     }
   }, {
     key: "update",
     value: function update() {
-      var _this$web2vr$scroll, _this$web2vr$scroll2;
+      var _this3 = this,
+        _this$web2vr$scroll,
+        _this$web2vr$scroll2;
+      if (!this.initComplete) {
+        // Try again later.
+        this.domElement.addEventListener(new Event('initComplete'), function () {
+          return _this3.update();
+        });
+        return;
+      }
       var clientRect = this.domElement.getBoundingClientRect();
 
       // its not on the screen
@@ -2582,7 +2599,7 @@ var Element = /*#__PURE__*/function () {
   }, {
     key: "setupClipping",
     value: function setupClipping() {
-      var _this3 = this;
+      var _this4 = this;
       var clippingContext = this.getClippingContext();
       if (clippingContext) {
         this.clippingContext = clippingContext;
@@ -2597,7 +2614,7 @@ var Element = /*#__PURE__*/function () {
 
         //this.updateClipping();
         setTimeout(function () {
-          _this3.updateClipping();
+          _this4.updateClipping();
         }, 200); // if it doesnt work use this
         // return new Promise();
       }
