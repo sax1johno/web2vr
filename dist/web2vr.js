@@ -2862,10 +2862,12 @@ var InputElement = /*#__PURE__*/function (_TextElement) {
     _this.entity.addEventListener("click", function () {
       var camera = _this.web2vr.aframe.scene.camera.parent;
       var keyboard = _this.web2vr.aframe.keyboard.object3D;
-      keyboard.position.copy(camera.position);
+      var cameraWorldPos = new THREE.Vector3();
+      cameraWorldPos.setFromMatrixPosition(camera.matrixWorld);
+      keyboard.position.copy(cameraWorldPos);
       keyboard.rotation.copy(camera.rotation);
       keyboard.rotation.z = 0;
-      keyboard.rotation.x = THREE.Math.degToRad(-30);
+      keyboard.rotation.x = THREE.MathUtils.degToRad(-30);
       keyboard.translateX(-0.24);
       keyboard.translateY(-0.1);
       keyboard.translateZ(-0.6);
@@ -3222,7 +3224,7 @@ var VideoElement = /*#__PURE__*/function (_Element) {
         this.video360.setAttribute("src", "#" + id);
         // set video360 rotation
         var rotation = this.domElement.getAttribute("vr");
-        if (rotation) this.video360.object3D.rotation.y = THREE.Math.degToRad(rotation);else this.video360.object3D.rotation.y = 0;
+        if (rotation) this.video360.object3D.rotation.y = THREE.MathUtils.degToRad(rotation);else this.video360.object3D.rotation.y = 0;
       } else {
         this.video360.object3D.visible = false;
         this.video360.classList.remove(this.web2vr.settings.interactiveTag);

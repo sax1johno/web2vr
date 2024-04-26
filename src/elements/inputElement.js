@@ -14,10 +14,13 @@ export default class InputElement extends TextElement {
             const camera = this.web2vr.aframe.scene.camera.parent;
             const keyboard = this.web2vr.aframe.keyboard.object3D;
 
-            keyboard.position.copy(camera.position);
+            var cameraWorldPos = new THREE.Vector3();
+            cameraWorldPos.setFromMatrixPosition(camera.matrixWorld);
+
+            keyboard.position.copy(cameraWorldPos);
             keyboard.rotation.copy(camera.rotation);
             keyboard.rotation.z = 0;
-            keyboard.rotation.x = THREE.Math.degToRad(-30);
+            keyboard.rotation.x = THREE.MathUtils.degToRad(-30);
             keyboard.translateX(-0.24);
             keyboard.translateY(-0.1);
             keyboard.translateZ(-0.6);
