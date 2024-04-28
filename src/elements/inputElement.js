@@ -17,6 +17,9 @@ export default class InputElement extends TextElement {
             var cameraWorldPos = new THREE.Vector3();
             cameraWorldPos.setFromMatrixPosition(camera.matrixWorld);
 
+            var cameraWorldDir = new THREE.Vector3();
+            camera.getWorldDirection(cameraWorldDir);
+
             keyboard.position.copy(cameraWorldPos);
             keyboard.rotation.copy(camera.rotation);
             keyboard.rotation.z = 0;

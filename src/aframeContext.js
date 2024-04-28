@@ -122,7 +122,7 @@ export default class AframeContext {
             // current active input
             this.keyboard.activeInput = null;
             // event listener for the keyboard key press 
-            document.addEventListener('a-keyboard-update', (e) => {
+            const inputCallback = (e) => {
                 if (this.keyboard.activeInput) {
                     const code = parseInt(e.detail.code);
                     let value = this.keyboard.activeInput.value;
@@ -146,7 +146,8 @@ export default class AframeContext {
                     this.keyboard.activeInput.value = value;
                     this.keyboard.activeInput.element.update();
                 }
-            });
+            }
+            document.addEventListener('a-keyboard-update', AFRAME.utils.throttle(inputCallback, 100));
         }
     }
 }

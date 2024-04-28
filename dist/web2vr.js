@@ -1569,7 +1569,7 @@ var AframeContext = /*#__PURE__*/function () {
         // current active input
         this.keyboard.activeInput = null;
         // event listener for the keyboard key press 
-        document.addEventListener('a-keyboard-update', function (e) {
+        var inputCallback = function inputCallback(e) {
           if (_this2.keyboard.activeInput) {
             var code = parseInt(e.detail.code);
             var value = _this2.keyboard.activeInput.value;
@@ -1590,7 +1590,8 @@ var AframeContext = /*#__PURE__*/function () {
             _this2.keyboard.activeInput.value = value;
             _this2.keyboard.activeInput.element.update();
           }
-        });
+        };
+        document.addEventListener('a-keyboard-update', AFRAME.utils.throttle(inputCallback, 100));
       }
     }
   }]);
@@ -2864,6 +2865,8 @@ var InputElement = /*#__PURE__*/function (_TextElement) {
       var keyboard = _this.web2vr.aframe.keyboard.object3D;
       var cameraWorldPos = new THREE.Vector3();
       cameraWorldPos.setFromMatrixPosition(camera.matrixWorld);
+      var cameraWorldDir = new THREE.Vector3();
+      camera.getWorldDirection(cameraWorldDir);
       keyboard.position.copy(cameraWorldPos);
       keyboard.rotation.copy(camera.rotation);
       keyboard.rotation.z = 0;
